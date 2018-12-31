@@ -1,6 +1,6 @@
 Deathblow
 =========
-
+####v1.0.0
 Intro
 -----
 
@@ -11,4 +11,4 @@ character and the server calculates the resulting actions. The battle is then
 
 ## Installation
 
-
+ [//]: <>(TODO: Write installation)
