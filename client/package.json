@@ -1,24 +1,35 @@
 {
-	"name": "deathblow-client",
-	"version": "1.0.0",
-	"description": "Front-end application for Deathblow game",
-	"main": "main.js",
-	"scripts": {
-		"test": "test",
-		"build": "echo 'No build script'"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/jessegreen0906/deathblow_1.git"
-	},
-	"keywords": [
-		"deathblow",
-		"game"
-	],
-	"author": "Jesse Green",
-	"license": "UNLICENSED",
-	"bugs": {
-		"url": "https://github.com/jessegreen0906/deathblow_1/issues"
-	},
-	"homepage": "https://github.com/jessegreen0906/deathblow_1#readme"
+  "name": "deathblow-client",
+  "version": "1.0.0",
+  "description": "Front-end application for Deathblow game",
+  "main": "main.js",
+  "scripts": {
+    "test": "test",
+    "build": "echo 'No build script'",
+	  "storybook": "start-storybook -p 9001 -c .storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessegreen0906/deathblow_1.git"
+  },
+  "keywords": [
+    "deathblow",
+    "game"
+  ],
+  "author": "Jesse Green",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/jessegreen0906/deathblow_1/issues"
+  },
+  "homepage": "https://github.com/jessegreen0906/deathblow_1#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@storybook/react": "^4.1.4",
+    "babel-loader": "^8.0.4",
+    "webpack": "^4.28.3"
+  },
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  }
 }
