@@ -1,5 +1,6 @@
 .idea
 **/*.iml
-**/package-lock.json
 **/npm-debug.log
 **/node_modules
+**/.storybook/*old*
+**/.storybook/*tmp*

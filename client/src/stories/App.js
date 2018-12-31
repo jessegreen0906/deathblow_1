@@ -4,9 +4,9 @@
 
 import React from 'react'
 import { storiesOf } from "@storybook/react";
-import { App } from '../components/App/App';
+import App from '../components/App/App';
 
 storiesOf('App', module).add('Default', () => (
 	<App></App>
 	)
-)
+);

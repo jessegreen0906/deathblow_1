@@ -10,6 +10,7 @@ import { configure } from "@storybook/react";
 
 function loadStories() {
 	require('../stories/App');
+	require('../stories/Button');
 }
 
 configure(loadStories, module);
