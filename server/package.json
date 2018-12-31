@@ -1,0 +1,26 @@
+{
+  "name": "deathblow-server",
+  "version": "1.0.0",
+  "description": "Server side application for Deathblow game",
+  "main": "Server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessegreen0906/deathblow_1.git"
+  },
+  "keywords": [
+    "deathblow",
+    "game"
+  ],
+  "author": "Jesse Green",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jessegreen0906/deathblow_1/issues"
+  },
+  "homepage": "https://github.com/jessegreen0906/deathblow_1#readme",
+  "devDependencies": {
+    "restify": "^7.3.0"
+  }
+}
