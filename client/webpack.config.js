@@ -24,7 +24,9 @@ module.exports = {
 		]
 	},
 	mode: 'development',
-	entry: './src/components/App/App.jsx',
+	entry: {
+		client: ['babel-polyfill','./src/components/App/App.jsx']
+	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'deathblow-client.bundle.js'

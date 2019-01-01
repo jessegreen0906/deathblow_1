@@ -4,3 +4,4 @@
 **/node_modules
 **/.storybook/*old*
 **/.storybook/*tmp*
+client/dist

@@ -5,24 +5,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ViewStartScreen from '../ViewStartScreen/ViewStartScreen';
+import Logger from "../../util/Logger";
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.sessionId = -1;
+		this.state = {
+			sessionId: -1
+		}
 		this.setSessionIdHandle = this.setSessionId.bind(this);
+		this.serverConnectionFailedHandle = this.serverConnectionFailed.bind(this);
 	}
 	
 	setSessionId(value) {
-		this.sessionId = value;
+		this.setState({sessionId: value}, () => {
+			Logger.debugLog('In the app, sessionID = '+this.state.sessionId, this.props.debug);
+		});
+	}
+	
+	serverConnectionFailed() {
+		// TODO: give user feedback
+		Logger.errorLog('App method server connection failed');
 	}
 	
 	render() {
 		return (
 			<ViewStartScreen
 				debugState={this.props.debug}
+				serverConnectionFailed={this.serverConnectionFailedHandle}
 				setSessionId={this.setSessionIdHandle}
-				sessionId={this.sessionId}
+				sessionId={this.state.sessionId}
 			/>
 		);
 	}

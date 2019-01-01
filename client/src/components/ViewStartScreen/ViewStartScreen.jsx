@@ -16,12 +16,21 @@ export default class ViewStartScreen extends View {
 	startNewGame() {
 		Logger.debugLog('Starting new game', this.props.debugState);
 		Logger.debugLog('Session ID = '+this.props.sessionId, this.props.debugState);
-		this.props.setSessionId(this.requestNewSession());
-		Logger.debugLog('Session ID = '+this.props.sessionId, this.props.debugState);
+		this.requestNewSession().then( (sessionId) => {
+			this.props.setSessionId(sessionId['gameId']);
+			Logger.debugLog('Session ID = '+this.props.sessionId, this.props.debugState);
+		}, ()=>{
+			this.props.serverConnectionFailed();
+		});
+		
+		this.props.setSessionId
 	}
 	
-	requestNewSession() {
-		return -2;
+	async requestNewSession() {
+		Logger.debugLog('Requesting new session from the server');
+		const response = await fetch('http://localhost:9301/newSession')
+		const responseJson = response.json();
+		return responseJson;
 	}
 	
 	render() {
