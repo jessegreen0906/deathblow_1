@@ -10,6 +10,9 @@ module.exports = {
 		rules: [
 			{
 				test: /\.jsx?$/,
+				resolve: {
+					extensions: [".js", ".jsx"]
+				},
 				exclude: /node_modules/,
 				use: {
 					loader: 'babel-loader',
@@ -28,7 +31,8 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: 'Deathblow'
+			title: 'Deathblow',
+			template: './src/index.html'
 		})
 	]
 };

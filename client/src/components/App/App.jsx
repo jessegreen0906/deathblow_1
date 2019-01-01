@@ -4,19 +4,30 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ViewStartScreen from '../ViewStartScreen/ViewStartScreen';
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
+		this.sessionId = -1;
+		this.setSessionIdHandle = this.setSessionId.bind(this);
+	}
+	
+	setSessionId(value) {
+		this.sessionId = value;
 	}
 	
 	render() {
 		return (
-			<h1>Hello world</h1>
+			<ViewStartScreen
+				debugState={this.props.debug}
+				setSessionId={this.setSessionIdHandle}
+				sessionId={this.sessionId}
+			/>
 		);
 	}
 }
 ReactDOM.render(
-	<App />,
+	<App debug={true}/>,
 	document.getElementById('root')
 )
