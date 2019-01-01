@@ -3,15 +3,19 @@
  */
 
 import React from 'react';
-import Logger from '../../util/Logger';
+import View from '../View/View';
+import Logger from "../../util/Logger";
 
-export default class View extends React.Component {
+export default class ViewCharacterCreation extends View {
 	constructor(props) {
 		super(props);
-		this.transitionToView = props.transitionToView;
 	}
 	
-	startView(debugState) {
+	render() {
+		return (
+			<div className={"view-character-creation"}>
+				<h2>Character creation</h2>
+			</div>
+			);
 	}
-	
 }

@@ -4,8 +4,9 @@
 
 import React from 'react';
 import View from '../View/View';
-import Button from '../Button/Button';
+import  * as constants from '../../util/const.js';
 import Logger from "../../util/Logger";
+import Button from '../Button/Button';
 
 export default class ViewStartScreen extends View {
 	constructor(props) {
@@ -19,6 +20,7 @@ export default class ViewStartScreen extends View {
 		this.requestNewSession().then( (sessionId) => {
 			this.props.setSessionId(sessionId['gameId']);
 			Logger.debugLog('Session ID = '+this.props.sessionId, this.props.debugState);
+			this.transitionToView(constants.VIEW_NAME_CHAR_CREATION);
 		}, ()=>{
 			this.props.serverConnectionFailed();
 		});

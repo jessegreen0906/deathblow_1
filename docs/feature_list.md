@@ -3,10 +3,10 @@
 <ol>
     <li>ClientApp makes request to Server to init Session
         <ul>
-            <li>Starting from (UI)StartScreen</li>
-            <li>Server returns sessionID</li>
-            <li>Client stores sessionID</li>
-            <li>End on (UI)CharacterCreation</li>
+            <li><s>Starting from (UI)StartScreen</s></li>
+            <li><s>Server returns sessionID</s></li>
+            <li><s>Client stores sessionID</s></li>
+            <li>End on (UI)CharacterCreation</s></li>
         </ul>
     </li>
     <li>

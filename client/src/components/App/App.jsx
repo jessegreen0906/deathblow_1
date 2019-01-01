@@ -6,13 +6,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ViewStartScreen from '../ViewStartScreen/ViewStartScreen';
 import Logger from "../../util/Logger";
+import ViewCharacterCreation
+	from "../ViewCharacterCreation/ViewCharacterCreation";
+import  * as constants from '../../util/const.js';
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			sessionId: -1
+			sessionId: -1,
+			currentView: 'startScreen'
 		}
+		this.transitionToViewHandle = this.transitionToView.bind(this);
 		this.setSessionIdHandle = this.setSessionId.bind(this);
 		this.serverConnectionFailedHandle = this.serverConnectionFailed.bind(this);
 	}
@@ -28,14 +33,39 @@ export default class App extends React.Component {
 		Logger.errorLog('App method server connection failed');
 	}
 	
+	transitionToView(targetView) {
+		this.setState({currentView: targetView}, () => {
+			Logger.debugLog('Changing to view '+targetView, this.props.debug);
+		});
+	}
+	
 	render() {
+		let view;
+		switch(this.state.currentView) {
+			case constants.VIEW_NAME_START_SCREEN:
+				view = <ViewStartScreen
+					debugState={this.props.debug}
+					serverConnectionFailed={this.serverConnectionFailedHandle}
+					transitionToView={this.transitionToViewHandle}
+					setSessionId={this.setSessionIdHandle}
+					sessionId={this.state.sessionId}
+				/>;
+				break;
+			case constants.VIEW_NAME_CHAR_CREATION:
+				view = <ViewCharacterCreation
+					debugState={this.props.debug}
+					serverConnectionFailed={this.serverConnectionFailedHandle}
+					transitionToView={this.transitionToViewHandle}
+				/>
+				break;
+			default:
+				Logger.errorLog('Cannot find view to transition to.');
+				view = <div></div>;
+		}
 		return (
-			<ViewStartScreen
-				debugState={this.props.debug}
-				serverConnectionFailed={this.serverConnectionFailedHandle}
-				setSessionId={this.setSessionIdHandle}
-				sessionId={this.state.sessionId}
-			/>
+			<div className={"app-deathblow"}>
+				{view}
+			</div>
 		);
 	}
 }
