@@ -22,5 +22,8 @@
   "homepage": "https://github.com/jessegreen0906/deathblow_1#readme",
   "devDependencies": {
     "restify": "^7.3.0"
+  },
+  "dependencies": {
+    "restify-cors-middleware": "^1.1.1"
   }
 }

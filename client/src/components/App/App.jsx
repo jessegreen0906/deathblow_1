@@ -15,11 +15,14 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
 			sessionId: -1,
-			currentView: 'startScreen'
+			currentView: 'startScreen',
+			playerName: 'Jesse',
+			playerId: -1
 		}
 		this.transitionToViewHandle = this.transitionToView.bind(this);
 		this.setSessionIdHandle = this.setSessionId.bind(this);
 		this.serverConnectionFailedHandle = this.serverConnectionFailed.bind(this);
+		this.playerIdAssignmentHandle = this. playerIdAssignment.bind(this);
 	}
 	
 	setSessionId(value) {
@@ -39,6 +42,12 @@ export default class App extends React.Component {
 		});
 	}
 	
+	playerIdAssignment(playerId) {
+		this.setState({playerId: playerId}, () => {
+			Logger.debugLog('Set player id to '+playerId, this.props.debug);
+		})
+	}
+	
 	render() {
 		let view;
 		switch(this.state.currentView) {
@@ -48,7 +57,10 @@ export default class App extends React.Component {
 					serverConnectionFailed={this.serverConnectionFailedHandle}
 					transitionToView={this.transitionToViewHandle}
 					setSessionId={this.setSessionIdHandle}
+					assignPlayerId={this.playerIdAssignmentHandle}
 					sessionId={this.state.sessionId}
+					playerName={this.state.playerName}
+					playerId={this.state.playerId}
 				/>;
 				break;
 			case constants.VIEW_NAME_CHAR_CREATION:

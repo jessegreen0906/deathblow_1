@@ -4,11 +4,11 @@
 
 import { Game } from "./classes/Game";
 import restify from "restify";
-//var restify = require('restify');
+import corsMiddleware from "restify-cors-middleware";
 var gameList = {};
 
 function createNewSession(req, res, next) {
-	let gameId = 2;
+	let gameId = Object.keys(gameList).length;
 	console.log('Creating new session');
 	gameList[Object.keys(gameList).length] = new Game({gameId:gameId})
 	
@@ -17,15 +17,31 @@ function createNewSession(req, res, next) {
 	next();
 }
 
+function joinSession(req, res, next) {
+	let gameId = req.params.sessionId;
+	let playerName = req.params.playerName;
+	let playerId = gameList[gameId].addPlayer({name:playerName});
+	
+	res.send({playerId});
+	next();
+}
+
 var server = restify.createServer();
-server.use(
-	function crossOrigin(req,res,next){
-		res.header("Access-Control-Allow-Origin", "*");
-		res.header("Access-Control-Allow-Headers", "X-Requested-With");
-		return next();
-	}
-);
+const cors = corsMiddleware({
+	origins:['*'],
+	allowHeaders: ['*'],
+});
+server.pre(cors.preflight);
+server.use(cors.actual);
+server.use(restify.plugins.queryParser({
+	mapParams: true
+}));
+server.use(restify.plugins.bodyParser({
+	mapParams: true
+}));
+
 server.get('/newSession', createNewSession);
+server.post('/joinSession', joinSession);
 // server.head('/newSession', respond);
 
 server.listen(9301, function() {

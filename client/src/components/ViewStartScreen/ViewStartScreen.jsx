@@ -18,14 +18,36 @@ export default class ViewStartScreen extends View {
 		Logger.debugLog('Starting new game', this.props.debugState);
 		Logger.debugLog('Session ID = '+this.props.sessionId, this.props.debugState);
 		this.requestNewSession().then( (sessionId) => {
-			this.props.setSessionId(sessionId['gameId']);
+			this.props.setSessionId(sessionId.gameId);
 			Logger.debugLog('Session ID = '+this.props.sessionId, this.props.debugState);
-			this.transitionToView(constants.VIEW_NAME_CHAR_CREATION);
+			this.joinGame().then((resp) => {
+				Logger.debugLog('Successfully joined session', this.props.debugState);
+				this.props.assignPlayerId(resp.playerId);
+				this.transitionToView(constants.VIEW_NAME_CHAR_CREATION);
+			}, () => {
+				this.props.serverConnectionFailed();
+			})
 		}, ()=>{
 			this.props.serverConnectionFailed();
 		});
 		
 		this.props.setSessionId
+	}
+	
+	async joinGame() {
+		const response = await fetch('http://localhost:9301/joinSession', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				sessionId: this.props.sessionId,
+				playerName: this.props.playerName
+			})
+		});
+		const responseJson = response.json();
+		return responseJson;
 	}
 	
 	async requestNewSession() {
