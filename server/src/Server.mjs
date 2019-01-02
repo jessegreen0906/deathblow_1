@@ -26,6 +26,19 @@ function joinSession(req, res, next) {
 	next();
 }
 
+function saveCharacter(req, res, next) {
+	let gameId = req.params.sessionId;
+	let playerId = req.params.playerId;
+	let char = req.params.character;
+	
+	if (gameList[gameId] != null) {
+		gameList[gameId].addCharacter(playerId, char);
+	}
+	
+	res.send({});
+	next();
+}
+
 var server = restify.createServer();
 const cors = corsMiddleware({
 	origins:['*'],
@@ -42,6 +55,7 @@ server.use(restify.plugins.bodyParser({
 
 server.get('/newSession', createNewSession);
 server.post('/joinSession', joinSession);
+server.post('/saveCharacter', saveCharacter);
 // server.head('/newSession', respond);
 
 server.listen(9301, function() {

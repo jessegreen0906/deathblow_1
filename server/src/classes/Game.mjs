@@ -9,6 +9,7 @@ export class Game {
 		console.log('New game = '+this.gameId);
 		
 		this.playersList = {};
+		this.characterList = {};
 	}
 	
 	addPlayer(player) {
@@ -17,5 +18,17 @@ export class Game {
 		
 		console.log('Game '+this.gameId+': added player '+this.playersList[playerId].playerName+'.');
 		return playerId;
+	}
+	
+	addCharacter(playerId, char) {
+		console.log('Attempting to add character to game');
+		if(this.playersList[playerId] != null) {
+			this.characterList[playerId] = char;
+			console.log('Character added: '+char);
+		} else {
+			console.log('Player could not be found: '+playerId+' \n\t' +
+				' Character addition aborted.');
+			return false;
+		}
 	}
 }

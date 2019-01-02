@@ -8,6 +8,7 @@ import ViewStartScreen from '../ViewStartScreen/ViewStartScreen';
 import Logger from "../../util/Logger";
 import ViewCharacterCreation
 	from "../ViewCharacterCreation/ViewCharacterCreation";
+import ViewGameplay from "../ViewGameplay/ViewGameplay";
 import  * as constants from '../../util/const.js';
 
 export default class App extends React.Component {
@@ -68,7 +69,16 @@ export default class App extends React.Component {
 					debugState={this.props.debug}
 					serverConnectionFailed={this.serverConnectionFailedHandle}
 					transitionToView={this.transitionToViewHandle}
-				/>
+					sessionId={this.state.sessionId}
+					playerId={this.state.playerId}
+				/>;
+				break;
+			case constants.VIEW_NAME_GAMEPLAY:
+				view = <ViewGameplay
+					debugState={this.props.debug}
+					serverConnectionFailed={this.serverConnectionFailedHandle}
+					transitionToView={this.transitionToViewHandle}
+				/>;
 				break;
 			default:
 				Logger.errorLog('Cannot find view to transition to.');
