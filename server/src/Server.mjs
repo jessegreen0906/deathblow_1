@@ -13,7 +13,7 @@ function createNewSession(req, res, next) {
 	gameList[Object.keys(gameList).length] = new Game({gameId:gameId})
 	
 	
-	res.send({gameId});
+	res.send({result:true, gameId});
 	next();
 }
 
@@ -21,9 +21,18 @@ function joinSession(req, res, next) {
 	let gameId = req.params.sessionId;
 	let playerName = req.params.playerName;
 	let playerId = gameList[gameId].addPlayer({name:playerName});
-	
-	res.send({playerId});
-	next();
+	if(playerId != -1){
+		playerName = gameList[gameId].playersList[playerId].playerName;
+		
+		res.send({result:true, playerId, playerName});
+		next();
+	} else {
+		res.send({
+			result:false,
+			messsage: 'Player could not be added'
+		});
+		next();
+	}
 }
 
 function saveCharacter(req, res, next) {
@@ -33,10 +42,13 @@ function saveCharacter(req, res, next) {
 	
 	if (gameList[gameId] != null) {
 		gameList[gameId].addCharacter(playerId, char);
+		
+		res.send({result:true});
+		next();
+	} else {
+		res.send({result: false});
 	}
 	
-	res.send({});
-	next();
 }
 
 var server = restify.createServer();
@@ -56,7 +68,6 @@ server.use(restify.plugins.bodyParser({
 server.get('/newSession', createNewSession);
 server.post('/joinSession', joinSession);
 server.post('/saveCharacter', saveCharacter);
-// server.head('/newSession', respond);
 
 server.listen(9301, function() {
 	console.log('%s listening at %s', server.name, server.url);

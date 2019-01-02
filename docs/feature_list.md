@@ -20,5 +20,7 @@
        </ul>
     </li>
     <li><s>Unique gameID is generated for each game</s></li>
-    <li>User can create character</li>
+    <li><s>User can create character</s></li>
+    <li><s>User can join an existing game</s></li>
+    <li>
 </ol>
