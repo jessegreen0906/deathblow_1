@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ViewStartScreen from '../ViewStartScreen/ViewStartScreen';
 import Logger from "../../util/Logger";
+import ViewPreGameLobby from "../ViewPreGameLobby/ViewPreGameLobby";
 import ViewCharacterCreation
 	from "../ViewCharacterCreation/ViewCharacterCreation";
 import ViewGameplay from "../ViewGameplay/ViewGameplay";
@@ -72,6 +73,14 @@ export default class App extends React.Component {
 					playerId={this.state.playerId}
 				/>;
 				break;
+			case constants.VIEW_NAME_PREGAME_LOBBY:
+				view = <ViewPreGameLobby
+						debugState={this.props.debug}
+						serverConnectionFailed={this.serverConnectionFailedHandle}
+						transitionToView={this.transitionToViewHandle}
+						sessionId={this.state.sessionId}
+					/>;
+					break;
 			case constants.VIEW_NAME_CHAR_CREATION:
 				view = <ViewCharacterCreation
 					debugState={this.props.debug}

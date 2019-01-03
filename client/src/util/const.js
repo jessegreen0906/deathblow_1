@@ -5,10 +5,12 @@
 export const SERVER_ADDR = 'http://localhost:9301';
 export const API_NEW_SESSION = '/newSession';
 export const API_JOIN_SESSION = '/joinSession';
+export const API_GET_LOBBY_DETAILS= '/getLobbyDetails';
 export const API_SAVE_CHAR = '/saveCharacter';
 
 
 // Views
 export const VIEW_NAME_START_SCREEN = 'startScreen';
+export const VIEW_NAME_PREGAME_LOBBY= 'preGameLobby';
 export const VIEW_NAME_CHAR_CREATION = 'characterCreation';
 export const VIEW_NAME_GAMEPLAY = 'gameplay';

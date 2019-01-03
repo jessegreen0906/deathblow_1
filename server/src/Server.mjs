@@ -5,12 +5,16 @@
 import { Game } from "./classes/Game";
 import restify from "restify";
 import corsMiddleware from "restify-cors-middleware";
+import * as constants from './const';
 var gameList = {};
 
 function createNewSession(req, res, next) {
 	let gameId = Object.keys(gameList).length;
 	console.log('Creating new session');
-	gameList[Object.keys(gameList).length] = new Game({gameId:gameId})
+	gameList[Object.keys(gameList).length] = new Game({
+		gameId:gameId,
+		maxPlayers: constants.MAX_PLAYERS
+	});
 	
 	
 	res.send({result:true, gameId});
@@ -51,6 +55,26 @@ function saveCharacter(req, res, next) {
 	
 }
 
+function getLobbyDetails(req, res, next) {
+	let gameId = req.params.sessionId;
+	
+	if(gameList[gameId] != null) {
+		let game = gameList[gameId];
+		res.send({
+			result: true,
+			maxPlayers: game.maxPlayers,
+			playersList: game.playersList
+		});
+		next();
+	} else {
+		res.send({
+			result: false
+		});
+		next();
+	}
+	
+}
+
 var server = restify.createServer();
 const cors = corsMiddleware({
 	origins:['*'],
@@ -68,6 +92,7 @@ server.use(restify.plugins.bodyParser({
 server.get('/newSession', createNewSession);
 server.post('/joinSession', joinSession);
 server.post('/saveCharacter', saveCharacter);
+server.post('/getLobbyDetails', getLobbyDetails);
 
 server.listen(9301, function() {
 	console.log('%s listening at %s', server.name, server.url);

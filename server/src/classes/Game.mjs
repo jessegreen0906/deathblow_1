@@ -9,13 +9,14 @@ export class Game {
 		this.gameId = props.gameId;
 		console.log('New game = '+this.gameId);
 		
+		this.maxPlayers = props.maxPlayers;
 		this.playersList = {};
 		this.characterList = {};
 	}
 	
 	addPlayer(player) {
 		let playerId = Object.keys(this.playersList).length;
-		if (playerId >= constants.MAX_PLAYERS) {
+		if (playerId >= this.maxPlayers) {
 			console.log('Game '+this.gameId+': could not add player. Maximum' +
 				' players reached.');
 			return -1;

@@ -54,7 +54,7 @@ export default class ViewStartScreen extends View {
 				Logger.debugLog('Successfully joined session', this.props.debugState);
 				this.props.assignPlayerId(resp.playerId);
 				this.props.setPlayerName(resp.playerName);
-				this.transitionToView(constants.VIEW_NAME_CHAR_CREATION);
+				this.transitionToView(constants.VIEW_NAME_PREGAME_LOBBY);
 			} else {
 				Logger.debugLog('Could not join session.', this.props.debugState);
 				Logger.debugLog(resp.message, this.props.debugState);
@@ -136,9 +136,6 @@ export default class ViewStartScreen extends View {
 							type={"submit"}
 						/>
 					</form>
-				</div>
-				<div className={['pre-game-lobby'].join(' ')}>
-				
 				</div>
 			</div>
 		);
