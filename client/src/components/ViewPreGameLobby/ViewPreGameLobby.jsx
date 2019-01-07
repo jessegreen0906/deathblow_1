@@ -19,6 +19,7 @@ export default class ViewPreGameLobby extends View {
 		this.getLobbyDetails = this.getLobbyDetails.bind(this);
 		this.renderListItems = this.renderListItems.bind(this);
 		this.updateLobbyDetails = this.updateLobbyDetails.bind(this);
+		this.defineFooter = this.defineFooter.bind(this);
 	}
 	
 	componentDidMount() {
@@ -66,17 +67,23 @@ export default class ViewPreGameLobby extends View {
 		}
 		return listItems;
 	}
-	
-	render() {
-		let listOfPlayers = this.renderListItems(this.state.playersList);
+
+	defineFooter() {
+		let footer;
 		if (this.state.gameStarting) {
-			let footer = <p>Game starting...</p>;
+			footer = <p>Game starting...</p>;
 		} else {
-			let footer = <Button
+			footer = <Button
 				text={'Start game'}
 				onClick={this.transitionToView(constants.VIEW_NAME_CHAR_CREATION)}
 			/>;
 		}
+		return footer;
+	}
+	
+	render() {
+		let listOfPlayers = this.renderListItems(this.state.playersList);
+		let footer = this.defineFooter();
 		return(
 			<div>
 				<h2>Pre game lobby</h2>

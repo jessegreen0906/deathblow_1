@@ -12,3 +12,12 @@ character and the server calculates the resulting actions. The battle is then
 ## Installation
 
  [//]: <>(TODO: Write installation)
+
+<ol>
+    <li>Clone this repo into an apporpriate working space</li>
+    ``git clone http
+    <li>Navigate 
+    
+    Note: Python may need to be installed.
+    npm install -g python
+</ol>
