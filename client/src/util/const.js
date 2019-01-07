@@ -7,6 +7,7 @@ export const API_NEW_SESSION = '/newSession';
 export const API_JOIN_SESSION = '/joinSession';
 export const API_GET_LOBBY_DETAILS= '/getLobbyDetails';
 export const API_SAVE_CHAR = '/saveCharacter';
+export const API_START_GAME = '/startGame';
 
 
 // Views

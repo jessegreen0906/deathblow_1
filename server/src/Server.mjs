@@ -63,7 +63,8 @@ function getLobbyDetails(req, res, next) {
 		res.send({
 			result: true,
 			maxPlayers: game.maxPlayers,
-			playersList: game.playersList
+			playersList: game.playersList,
+			gameStatus: game.gameStatus
 		});
 		next();
 	} else {
@@ -73,6 +74,23 @@ function getLobbyDetails(req, res, next) {
 		next();
 	}
 	
+}
+
+function startGame(req, res, next){
+	let gameId = req.params.sessionId;
+	
+	if(gameList[gameId] != null) {
+		gameList[gameId].setGameStatus(1);
+		res.send({
+			result: true
+		});
+		next();
+	} else {
+		res.send({
+			result: false
+		});
+		next();
+	}
 }
 
 var server = restify.createServer();
@@ -93,6 +111,7 @@ server.get('/newSession', createNewSession);
 server.post('/joinSession', joinSession);
 server.post('/saveCharacter', saveCharacter);
 server.post('/getLobbyDetails', getLobbyDetails);
+server.post('/startGame', startGame);
 
 server.listen(9301, function() {
 	console.log('%s listening at %s', server.name, server.url);

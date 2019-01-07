@@ -12,6 +12,7 @@ export class Game {
 		this.maxPlayers = props.maxPlayers;
 		this.playersList = {};
 		this.characterList = {};
+		this.gameStatus = 0;
 	}
 	
 	addPlayer(player) {
@@ -57,5 +58,9 @@ export class Game {
 				' Character addition aborted.');
 			return false;
 		}
+	}
+	
+	setGameStatus(status) {
+		this.gameStatus = status;
 	}
 }
