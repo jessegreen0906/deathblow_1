@@ -20,6 +20,8 @@ export default class ViewPreGameLobby extends View {
 		this.renderListItems = this.renderListItems.bind(this);
 		this.updateLobbyDetails = this.updateLobbyDetails.bind(this);
 		this.defineFooter = this.defineFooter.bind(this);
+		this.transitionToCharCreation = this.transitionToCharCreation.bind(this);
+		this.intervalTimer;
 	}
 	
 	componentDidMount() {
@@ -38,7 +40,7 @@ export default class ViewPreGameLobby extends View {
 		}, (resp)=> {
 			this.props.serverConnectionFailed();
 		})
-		window.setTimeout(this.updateLobbyDetails, 1000);
+		this.intervalTimer =  window.setTimeout(this.updateLobbyDetails, 1000);
 	}
 	
 	async getLobbyDetails() {
@@ -68,6 +70,11 @@ export default class ViewPreGameLobby extends View {
 		return listItems;
 	}
 
+	transitionToCharCreation() {
+		window.clearTimeout(this.intervalTimer);
+		this.transitionToView(constants.VIEW_NAME_CHAR_CREATION);
+	}
+
 	defineFooter() {
 		let footer;
 		if (this.state.gameStarting) {
@@ -75,7 +82,7 @@ export default class ViewPreGameLobby extends View {
 		} else {
 			footer = <Button
 				text={'Start game'}
-				onClick={this.transitionToView(constants.VIEW_NAME_CHAR_CREATION)}
+				onClick={this.transitionToCharCreation}
 			/>;
 		}
 		return footer;
