@@ -21,12 +21,18 @@ export default class ViewPreGameLobby extends View {
 		this.updateLobbyDetails = this.updateLobbyDetails.bind(this);
 		this.defineFooter = this.defineFooter.bind(this);
 		this.transitionToCharCreation = this.transitionToCharCreation.bind(this);
+		this.startGameCountdown = this.startGameCountdown.bind(this);
 		this.intervalTimer;
 	}
 	
 	componentDidMount() {
 		Logger.debugLog('Retrieving lobby details', this.props.debugState);
 		this.updateLobbyDetails();
+	}
+
+	componentWillUnmount() {
+		window.clearTimeout(this.intervalTimer);
+		window.clearTimeout(this.timer);
 	}
 	
 	updateLobbyDetails() {
@@ -71,18 +77,31 @@ export default class ViewPreGameLobby extends View {
 	}
 
 	transitionToCharCreation() {
-		window.clearTimeout(this.intervalTimer);
 		this.transitionToView(constants.VIEW_NAME_CHAR_CREATION);
+	}
+
+	startGameCountdown() {
+		fetch(constants.SERVER_ADDR+constants.API_START_GAME,{
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				sessionId: this.props.sessionId,
+			})
+		});
 	}
 
 	defineFooter() {
 		let footer;
 		if (this.state.gameStarting) {
 			footer = <p>Game starting...</p>;
+			this.timer = window.setTimeout(this.transitionToCharCreation, 5000);
 		} else {
 			footer = <Button
 				text={'Start game'}
-				onClick={this.transitionToCharCreation}
+				onClick={this.startGameCountdown}
 			/>;
 		}
 		return footer;
