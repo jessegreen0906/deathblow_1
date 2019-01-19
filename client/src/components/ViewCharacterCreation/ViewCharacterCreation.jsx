@@ -8,24 +8,48 @@ import Logger from "../../util/Logger";
 import Button from "../Button/Button";
 import  * as constants from '../../util/const.js';
 import {VIEW_NAME_GAMEPLAY} from "../../util/const";
+import InputForm from "../InputForm/InputForm";
 
 export default class ViewCharacterCreation extends View {
 	constructor(props) {
 		super(props);
+		this.state = {
+			character: {
+				health: 100
+			},
+			formDef: {
+				1: {
+					question: "Speed or strength?",
+					type: "toggle",
+					label1: "spood",
+					label2: "strAngth",
+					value: true
+				}
+			}
+		};
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 	
 	saveCharacter() {
-		let character = {
-			health: 100
-		};
 		Logger.debugLog('Submitting character.', this.props.debug);
-		this.sendCharacter(character).then((resp)=> {
+		this.sendCharacter(this.state.character).then((resp)=> {
 			Logger.debugLog('Character submitted.', this.props.debug);
 			this.transitionToView(VIEW_NAME_GAMEPLAY);
 		}, (resp) => {
 			this.props.serverConnectionFailed();
 		});
 	
+	}
+
+	handleInputChange(event) {
+		Logger.debugLog('change', true);
+		Logger.debugLog(event.target, true);
+		this.setState((state, props)=>{
+			state.formDef["1"].value = !state.formDef["1"].value;
+		},()=>{
+			console.log('ya');
+		});
+		// this.setState({formDef:{1:{value: false}}});
 	}
 	
 	async sendCharacter(character) {
@@ -49,6 +73,10 @@ export default class ViewCharacterCreation extends View {
 		return (
 			<div className={"view-character-creation"}>
 				<h2>Character creation</h2>
+				<InputForm
+					formDef={this.state.formDef}
+					on_Change={this.handleInputChange}
+				/>
 				<Button
 					text={"Submit"}
 					onClick={this.saveCharacter.bind(this)}

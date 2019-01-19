@@ -22,5 +22,5 @@
     <li><s>Unique gameID is generated for each game</s></li>
     <li><s>User can create character</s></li>
     <li><s>User can join an existing game</s></li>
-    <li>
+    <li>User can customise the stats of their character</li>
 </ol>
