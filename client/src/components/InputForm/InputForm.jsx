@@ -15,7 +15,7 @@ export default class InputForm extends React.Component {
 			switch (inputs[i]["type"]) {
 				case 'toggle':
 					output.push(<InputToggle
-						key={i}
+						name={i.toString()}
 						question={inputs[i]["question"]}
 						label1={inputs[i]['label1']}
 						label2={inputs[i]['label2']}

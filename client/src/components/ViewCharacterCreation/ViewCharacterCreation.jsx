@@ -15,7 +15,9 @@ export default class ViewCharacterCreation extends View {
 		super(props);
 		this.state = {
 			character: {
-				health: 100
+				health: 100,
+				speed: 100,
+				strength: 120
 			},
 			formDef: {
 				1: {
@@ -43,13 +45,13 @@ export default class ViewCharacterCreation extends View {
 
 	handleInputChange(event) {
 		Logger.debugLog('change', true);
-		Logger.debugLog(event.target, true);
-		this.setState((state, props)=>{
-			state.formDef["1"].value = !state.formDef["1"].value;
-		},()=>{
-			console.log('ya');
+		let trgt = event.target;
+		let newState = {formDef:{}};
+		newState.formDef[trgt.name] = this.state.formDef[trgt.name];
+		newState.formDef[trgt.name].value = !this.state.formDef[event.target.name].value;
+		this.setState(newState,()=>{
+			Logger.debugLog(this.state, this.props.debugState);
 		});
-		// this.setState({formDef:{1:{value: false}}});
 	}
 	
 	async sendCharacter(character) {

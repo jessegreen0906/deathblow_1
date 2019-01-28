@@ -97,7 +97,9 @@ export default class ViewPreGameLobby extends View {
 		let footer;
 		if (this.state.gameStarting) {
 			footer = <p>Game starting...</p>;
-			this.timer = window.setTimeout(this.transitionToCharCreation, 5000);
+			if(this.timer == null) {
+				this.timer = window.setTimeout(this.transitionToCharCreation, 5000);
+			}
 		} else {
 			footer = <Button
 				text={'Start game'}
