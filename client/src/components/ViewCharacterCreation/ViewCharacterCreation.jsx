@@ -16,8 +16,8 @@ export default class ViewCharacterCreation extends View {
 		this.state = {
 			character: {
 				health: 100,
-				speed: 100,
-				strength: 120
+				speed: 110,
+				strength: 100
 			},
 			formDef: {
 				1: {
@@ -25,7 +25,7 @@ export default class ViewCharacterCreation extends View {
 					type: "toggle",
 					label1: "spood",
 					label2: "strAngth",
-					value: true
+					value: false
 				}
 			}
 		};
@@ -43,6 +43,25 @@ export default class ViewCharacterCreation extends View {
 	
 	}
 
+	updateCharacterStats() {
+		let newChar = {
+			health: 100,
+			speed: 110,
+			strength: 100
+		};
+
+		let qList = this.state.formDef;
+
+		if(qList["1"].value == true) {
+			newChar.speed -= 10;
+			newChar.strength += 20;
+		}
+
+		this.setState((state) => {
+			state.character = newChar;
+		})
+	}
+
 	handleInputChange(event) {
 		Logger.debugLog('change', true);
 		let trgt = event.target;
@@ -50,6 +69,7 @@ export default class ViewCharacterCreation extends View {
 		newState.formDef[trgt.name] = this.state.formDef[trgt.name];
 		newState.formDef[trgt.name].value = !this.state.formDef[event.target.name].value;
 		this.setState(newState,()=>{
+			this.updateCharacterStats();
 			Logger.debugLog(this.state, this.props.debugState);
 		});
 	}

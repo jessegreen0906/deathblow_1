@@ -8,4 +8,8 @@ export default class Input extends React.Component {
 	render() {
 		return;
 	}
+
+	handleChange() {
+
+	}
 }
