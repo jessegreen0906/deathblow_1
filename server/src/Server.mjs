@@ -46,7 +46,10 @@ function saveCharacter(req, res, next) {
 	
 	if (gameList[gameId] != null) {
 		gameList[gameId].addCharacter(playerId, char);
-		
+
+		if(gameList[gameId].gameStatus == 2) {
+			gameList[gameId].calculateGame();
+		}
 		res.send({result:true});
 		next();
 	} else {

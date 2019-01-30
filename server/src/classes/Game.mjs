@@ -53,6 +53,9 @@ export class Game {
 		if(this.playersList[playerId] != null) {
 			this.characterList[playerId] = char;
 			console.log('Character added: '+char);
+			if(Object.keys(this.characterList).length == Object.keys(this.playersList).length) {
+				this.setGameStatus(2)
+			}
 		} else {
 			console.log('Player could not be found: '+playerId+' \n\t' +
 				' Character addition aborted.');
@@ -62,5 +65,9 @@ export class Game {
 	
 	setGameStatus(status) {
 		this.gameStatus = status;
+	}
+
+	calculateGame() {
+		console.log('Calculating game. GameID: '+this.gameId);
 	}
 }

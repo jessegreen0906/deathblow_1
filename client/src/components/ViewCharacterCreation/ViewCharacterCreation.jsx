@@ -17,7 +17,9 @@ export default class ViewCharacterCreation extends View {
 			character: {
 				health: 100,
 				speed: 110,
-				strength: 100
+				strength: 100,
+				atkRange: 0,
+				luck: 100
 			},
 			formDef: {
 				1: {
@@ -47,7 +49,9 @@ export default class ViewCharacterCreation extends View {
 		let newChar = {
 			health: 100,
 			speed: 110,
-			strength: 100
+			strength: 100,
+			atkRange: 0,
+			luck: 100
 		};
 
 		let qList = this.state.formDef;
