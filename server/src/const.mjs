@@ -3,3 +3,13 @@
  */
 
 export const MAX_PLAYERS = 2;
+
+// Character field names
+
+export const CHAR_ATK_RANGE = 'atkRange';
+export const CHAR_HEALTH = 'health';
+export const CHAR_LUCK = 'luck';
+export const CHAR_SPEED = 'speed';
+export const CHAR_STRENGTH = 'strength';
+
+// Game result

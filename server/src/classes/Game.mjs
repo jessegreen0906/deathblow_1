@@ -2,6 +2,7 @@
  * Copyright (c) 2019. Code contained in this file is written by and the intellectual property of Jesse Green except where otherwise noted. Reuse for educational, open source or reference uses is freely available provided reference to the original source is cited with use. Reuse for commercial purposes is prohibited without the consent of the owner.
  */
 import {Player} from "./Player";
+import {Character} from "./Character";
 import * as constants from '../const';
 
 export class Game {
@@ -13,6 +14,7 @@ export class Game {
 		this.playersList = {};
 		this.characterList = {};
 		this.gameStatus = 0;
+		this.turnList = {};
 	}
 	
 	addPlayer(player) {
@@ -51,7 +53,7 @@ export class Game {
 	addCharacter(playerId, char) {
 		console.log('Attempting to add character to game');
 		if(this.playersList[playerId] != null) {
-			this.characterList[playerId] = char;
+			this.characterList[playerId] = new Character(char);
 			console.log('Character added: '+char);
 			if(Object.keys(this.characterList).length == Object.keys(this.playersList).length) {
 				this.setGameStatus(2)
@@ -67,7 +69,15 @@ export class Game {
 		this.gameStatus = status;
 	}
 
-	calculateGame() {
+	async calculateGame() {
 		console.log('Calculating game. GameID: '+this.gameId);
+	}
+
+	checkWinner() {
+		let charAlive = 0;
+
+		for (var char in this.characterList) {
+
+		}
 	}
 }
