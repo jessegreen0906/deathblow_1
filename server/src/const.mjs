@@ -13,3 +13,6 @@ export const CHAR_SPEED = 'speed';
 export const CHAR_STRENGTH = 'strength';
 
 // Game result
+export const GAME_RES_IN_PROGRESS = 'inProg';
+export const GAME_RES_DRAW = 'draw';
+export const GAME_RES_WIN = 'win';

@@ -4,6 +4,7 @@
 import {Player} from "./Player";
 import {Character} from "./Character";
 import * as constants from '../const';
+import {GAME_RES_IN_PROGRESS} from "../const";
 
 export class Game {
 	constructor(props) {
@@ -15,6 +16,8 @@ export class Game {
 		this.characterList = {};
 		this.gameStatus = 0;
 		this.turnList = {};
+		this.result = constants.GAME_RES_IN_PROGRESS;
+		this.winners = {};
 	}
 	
 	addPlayer(player) {
@@ -71,13 +74,28 @@ export class Game {
 
 	async calculateGame() {
 		console.log('Calculating game. GameID: '+this.gameId);
+		this.checkWinner();
+		while(this.result == constants.GAME_RES_IN_PROGRESS) {
+
+		}
 	}
 
 	checkWinner() {
 		let charAlive = 0;
 
 		for (var char in this.characterList) {
+			if (this.characterList[char].health <= 0) {
+				this.winners[charAlive] = this.playersList[char];
+				charAlive++;
+			}
+		}
 
+		if (charAlive <= 0) {
+			this.result = constants.GAME_RES_DRAW;
+		} else if (charAlive == 1) {
+			this.result = constants.GAME_RES_WIN;
+		} else {
+			this.winners = {};
 		}
 	}
 }
