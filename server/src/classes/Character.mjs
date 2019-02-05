@@ -8,4 +8,11 @@ export class Character {
 		this[constants.CHAR_SPEED] = props[constants.CHAR_SPEED];
 		this[constants.CHAR_STRENGTH] = props[constants.CHAR_STRENGTH];
 	}
+
+	setX(x) {
+		this.x = x;
+	}
+	setY(y) {
+		this.y = y;
+	}
 }

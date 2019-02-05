@@ -4,7 +4,6 @@
 import {Player} from "./Player";
 import {Character} from "./Character";
 import * as constants from '../const';
-import {GAME_RES_IN_PROGRESS} from "../const";
 
 export class Game {
 	constructor(props) {
@@ -18,6 +17,8 @@ export class Game {
 		this.turnList = {};
 		this.result = constants.GAME_RES_IN_PROGRESS;
 		this.winners = {};
+		this.mapWidth = 700;
+		this.mapHeight = 400;
 	}
 	
 	addPlayer(player) {
@@ -74,17 +75,30 @@ export class Game {
 
 	async calculateGame() {
 		console.log('Calculating game. GameID: '+this.gameId);
-		this.checkWinner();
+		this.initialiseGame();
 		while(this.result == constants.GAME_RES_IN_PROGRESS) {
 
 		}
+		console.log(this.winners[0]);
+	}
+
+	initialiseGame() {
+
+		// Split characters up
+		let numOfChar = Object.keys(this.characterList).length;
+		let avgGap = this.mapWidth - (numOfChar*constants.CHAR_WIDTH)/(numOfChar + 1);
+
+
+
+		this.checkWinner();
+
 	}
 
 	checkWinner() {
 		let charAlive = 0;
 
 		for (var char in this.characterList) {
-			if (this.characterList[char].health <= 0) {
+			if (this.characterList[char].health > 0) {
 				this.winners[charAlive] = this.playersList[char];
 				charAlive++;
 			}

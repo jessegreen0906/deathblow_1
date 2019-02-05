@@ -16,3 +16,7 @@ export const CHAR_STRENGTH = 'strength';
 export const GAME_RES_IN_PROGRESS = 'inProg';
 export const GAME_RES_DRAW = 'draw';
 export const GAME_RES_WIN = 'win';
+
+// Character dimensions
+export const CHAR_HEIGHT = 200;
+export const CHAR_WIDTH = 50;
