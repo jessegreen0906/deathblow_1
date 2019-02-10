@@ -86,8 +86,13 @@ export class Game {
 
 		// Split characters up
 		let numOfChar = Object.keys(this.characterList).length;
-		let avgGap = this.mapWidth - (numOfChar*constants.CHAR_WIDTH)/(numOfChar + 1);
-
+		let avgGap = (this.mapWidth - numOfChar*constants.CHAR_WIDTH)/(numOfChar + 1);
+		for (var char in this.characterList) {
+			let currChar = this.characterList[char];
+			currChar.setX(avgGap+char*(avgGap+constants.CHAR_WIDTH));
+			console.log('Character for player '+this.playersList[char].playerName+
+			' is positioned at X:'+currChar.x+', Y:'+currChar.y);
+		}
 
 
 		this.checkWinner();

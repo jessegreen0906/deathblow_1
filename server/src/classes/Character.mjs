@@ -7,6 +7,8 @@ export class Character {
 		this[constants.CHAR_LUCK] = props[constants.CHAR_LUCK];
 		this[constants.CHAR_SPEED] = props[constants.CHAR_SPEED];
 		this[constants.CHAR_STRENGTH] = props[constants.CHAR_STRENGTH];
+		this.x = 0;
+		this.y = 0;
 	}
 
 	setX(x) {
