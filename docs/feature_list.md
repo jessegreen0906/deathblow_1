@@ -22,5 +22,13 @@
     <li><s>Unique gameID is generated for each game</s></li>
     <li><s>User can create character</s></li>
     <li><s>User can join an existing game</s></li>
-    <li>User can customise the stats of their character</li>
+    <li><s>User can customise the stats of their character</s></li>
+    <li>Game engine calculates each step and final result 
+    of the game based on pre-defined rules.
+       <ul>
+        <li><s>Game checks that there are at least 2 live characters</s></li>
+        <li><s>Game gives initial placement to characters</s></li>
+        <li>Game decides what each character will do.</li>
+       </ul>
+    </li>
 </ol>
