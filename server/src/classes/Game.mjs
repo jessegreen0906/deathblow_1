@@ -75,9 +75,26 @@ export class Game {
 
 	async calculateGame() {
 		console.log('Calculating game. GameID: '+this.gameId);
+		let characterTurn = {};
 		this.initialiseGame();
 		while(this.result == constants.GAME_RES_IN_PROGRESS) {
+			characterTurn = {};
+			for (var char in this.characterList) {
+				let charName = this.playersList[char].playerName;
 
+				// If opponent is within attack range, and not moving away, and not dead. Attack.
+				for (var charA in this.characterList) {
+					if (char != charA && this.characterList[charA].health > 0) {
+						let dist = Math.abs(this.characterList[char].x - this.characterList[charA].x);
+						if (dist <= this.characterList[char].atkRange) {
+							characterTurn.target = charA;
+						}
+					}
+				}
+				if (!characterTurn.target) {
+
+				}
+			}
 		}
 		console.log(this.winners[0]);
 	}
