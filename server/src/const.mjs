@@ -20,3 +20,8 @@ export const GAME_RES_WIN = 'win';
 // Character dimensions
 export const CHAR_HEIGHT = 200;
 export const CHAR_WIDTH = 50;
+
+//Character actions
+export const ACTION_ATTACK = 'attack';
+export const ACTION_MOVE = 'move';
+export const ACTION_WAIT = 'wait';

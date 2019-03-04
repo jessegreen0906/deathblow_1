@@ -14,7 +14,7 @@ export class Game {
 		this.playersList = {};
 		this.characterList = {};
 		this.gameStatus = 0;
-		this.turnList = {};
+		this.roundList = {};
 		this.result = constants.GAME_RES_IN_PROGRESS;
 		this.winners = {};
 		this.mapWidth = 700;
@@ -76,27 +76,60 @@ export class Game {
 	async calculateGame() {
 		console.log('Calculating game. GameID: '+this.gameId);
 		let characterTurn = {};
+		let roundCount = 0;
 		this.initialiseGame();
 		while(this.result == constants.GAME_RES_IN_PROGRESS) {
-			characterTurn = {};
+			this.roundList[roundCount] = {};
 			for (var char in this.characterList) {
+				characterTurn = {};
 				let charName = this.playersList[char].playerName;
 
 				// If opponent is within attack range, and not moving away, and not dead. Attack.
 				for (var charA in this.characterList) {
-					if (char != charA && this.characterList[charA].health > 0) {
+					if (this.checkValidTarget(char, charA)) {
 						let dist = Math.abs(this.characterList[char].x - this.characterList[charA].x);
 						if (dist <= this.characterList[char].atkRange) {
 							characterTurn.target = charA;
+							characterTurn.action = constants.ACTION_ATTACK;
 						}
 					}
 				}
 				if (!characterTurn.target) {
-
+					for (var charA in this.characterList) {
+						if (this.checkValidTarget(char, charA)) {
+							if (!characterTurn.target) {
+								characterTurn.target = charA;
+							} else {
+								let distToCurrTarget = this.distanceToTarget(char, charA);
+								if (this.distanceToTarget(char, characterTurn.target) > distToCurrTarget) {
+									characterTurn.target = charA;
+								}
+							}
+						}
+					}
+					if (characterTurn.target) {
+						characterTurn.action = constants.ACTION_MOVE;
+					}
 				}
+				if (!characterTurn.action) {
+					characterTurn.action = constants.ACTION_WAIT;
+				}
+				this.roundList[roundCount][char] = characterTurn;
 			}
 		}
 		console.log(this.winners[0]);
+	}
+
+	checkValidTarget(char1Id, char2Id) {
+		if (char1Id != char1Id && this.characterList[char2Id].health > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	distanceToTarget(charId, targetId) {
+		return Math.abs(this.characterList[charId].x - this.characterList[targetId].x);
 	}
 
 	initialiseGame() {
